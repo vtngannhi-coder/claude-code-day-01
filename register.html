@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: #090A14;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+    .font-poppins { font-family: 'Poppins', sans-serif; }
+    .font-inter { font-family: 'Inter', sans-serif; }
+    .primary-bg { background-color: #DF6B33; }
+    .primary-bg:hover { background-color: #c85d29; }
+    .primary-text { color: #DF6B33; }
+    .primary-border { border-color: #DF6B33; }
+    .input-bg { background-color: #1a1b2e; }
+    .input-border { border-color: #2a2b3e; }
+    .input-border:focus { border-color: #DF6B33; }
+    .card-bg { background-color: #0f101d; }
+    .label-color { color: #9ca3af; }
+    .social-btn:hover { background-color: #1a1b2e; border-color: #DF6B33; }
+    .link-hover:hover { color: #DF6B33; }
+    .divider-line { background-color: #2a2b3e; }
+    .check-mark { accent-color: #DF6B33; }
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px #1a1b2e inset !important;
+      -webkit-text-fill-color: #e5e7eb !important;
+    }
+    input[type="radio"].check-mark { accent-color: #DF6B33; }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 sm:p-6">
+
+  <div class="w-full max-w-md">
+
+    <!-- Logo / Brand -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl primary-bg mb-4">
+        <i data-lucide="shield-check" class="w-7 h-7 text-white"></i>
+      </div>
+      <h1 class="font-poppins text-3xl font-extrabold text-white mb-1">Create Account</h1>
+      <p class="font-inter text-sm" style="color: #6b7280;">Join us and get started today</p>
+    </div>
+
+    <!-- Card -->
+    <div class="card-bg rounded-2xl p-8 sm:p-10 shadow-2xl" style="border: 1px solid #1f2035;">
+
+      <form id="registerForm" onsubmit="handleRegister(event)">
+
+        <!-- Full Name -->
+        <div class="mb-5">
+          <label for="fullname" class="font-inter text-sm font-medium label-color block mb-2">Full Name <span style="color: #ef4444;">*</span></label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2" style="color: #4b5563;">
+              <i data-lucide="user" class="w-5 h-5"></i>
+            </span>
+            <input
+              type="text"
+              id="fullname"
+              name="fullname"
+              placeholder="John Doe"
+              autocomplete="name"
+              class="w-full input-bg text-white font-inter text-sm rounded-xl py-3 pl-12 pr-4 outline-none transition-all duration-200 input-border border"
+              onblur="validateFullname()"
+            >
+            <span id="fullnameError" class="font-inter text-xs mt-1 hidden" style="color: #ef4444;"></span>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-5">
+          <label for="email" class="font-inter text-sm font-medium label-color block mb-2">Email Address <span style="color: #ef4444;">*</span></label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2" style="color: #4b5563;">
+              <i data-lucide="mail" class="w-5 h-5"></i>
+            </span>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              class="w-full input-bg text-white font-inter text-sm rounded-xl py-3 pl-12 pr-4 outline-none transition-all duration-200 input-border border"
+              onblur="validateEmail()"
+            >
+            <span id="emailError" class="font-inter text-xs mt-1 hidden" style="color: #ef4444;"></span>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-5">
+          <label for="phone" class="font-inter text-sm font-medium label-color block mb-2">Phone Number <span class="font-inter text-xs" style="color: #6b7280;">(optional)</span></label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2" style="color: #4b5563;">
+              <i data-lucide="phone" class="w-5 h-5"></i>
+            </span>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="0912345678"
+              autocomplete="tel"
+              class="w-full input-bg text-white font-inter text-sm rounded-xl py-3 pl-12 pr-4 outline-none transition-all duration-200 input-border border"
+              onblur="validatePhone()"
+            >
+            <span id="phoneError" class="font-inter text-xs mt-1 hidden" style="color: #ef4444;"></span>
+          </div>
+        </div>
+
+        <!-- Gender -->
+        <div class="mb-5">
+          <label class="font-inter text-sm font-medium label-color block mb-2">Gender <span class="font-inter text-xs" style="color: #6b7280;">(optional)</span></label>
+          <div class="flex items-center gap-6 mt-2">
+            <label class="flex items-center gap-2 cursor-pointer select-none">
+              <input type="radio" name="gender" value="male" class="w-4 h-4 cursor-pointer check-mark">
+              <span class="font-inter text-sm" style="color: #9ca3af;">Male</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer select-none">
+              <input type="radio" name="gender" value="female" class="w-4 h-4 cursor-pointer check-mark">
+              <span class="font-inter text-sm" style="color: #9ca3af;">Female</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer select-none">
+              <input type="radio" name="gender" value="other" class="w-4 h-4 cursor-pointer check-mark">
+              <span class="font-inter text-sm" style="color: #9ca3af;">Other</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="mb-5">
+          <label for="address" class="font-inter text-sm font-medium label-color block mb-2">Address <span class="font-inter text-xs" style="color: #6b7280;">(optional)</span></label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2" style="color: #4b5563;">
+              <i data-lucide="map-pin" class="w-5 h-5"></i>
+            </span>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="123 Main St, City"
+              autocomplete="street-address"
+              class="w-full input-bg text-white font-inter text-sm rounded-xl py-3 pl-12 pr-4 outline-none transition-all duration-200 input-border border"
+            >
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-5">
+          <label for="password" class="font-inter text-sm font-medium label-color block mb-2">Password <span style="color: #ef4444;">*</span></label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2" style="color: #4b5563;">
+              <i data-lucide="lock" class="w-5 h-5"></i>
+            </span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a strong password"
+              autocomplete="new-password"
+              class="w-full input-bg text-white font-inter text-sm rounded-xl py-3 pl-12 pr-12 outline-none transition-all duration-200 input-border border"
+              onblur="validatePassword()"
+            >
+            <button type="button" id="togglePassword" class="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer" style="color: #4b5563;" onclick="togglePasswordVisibility()">
+              <i data-lucide="eye" class="w-5 h-5" id="eyeIcon"></i>
+            </button>
+            <span id="passwordError" class="font-inter text-xs mt-1 hidden" style="color: #ef4444;"></span>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-6">
+          <label for="confirmPassword" class="font-inter text-sm font-medium label-color block mb-2">Confirm Password <span style="color: #ef4444;">*</span></label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2" style="color: #4b5563;">
+              <i data-lucide="lock" class="w-5 h-5"></i>
+            </span>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Re-enter your password"
+              autocomplete="new-password"
+              class="w-full input-bg text-white font-inter text-sm rounded-xl py-3 pl-12 pr-12 outline-none transition-all duration-200 input-border border"
+              onblur="validateConfirmPassword()"
+            >
+            <button type="button" id="toggleConfirmPassword" class="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer" style="color: #4b5563;" onclick="toggleConfirmPasswordVisibility()">
+              <i data-lucide="eye" class="w-5 h-5" id="eyeConfirmIcon"></i>
+            </button>
+            <span id="confirmPasswordError" class="font-inter text-xs mt-1 hidden" style="color: #ef4444;"></span>
+          </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="mb-7">
+          <label class="flex items-start gap-2 cursor-pointer select-none">
+            <input type="checkbox" id="terms" class="w-4 h-4 rounded check-mark cursor-pointer mt-0.5" onchange="validateTerms()">
+            <span class="font-inter text-sm" style="color: #9ca3af;">I agree to the <a href="#" class="primary-text link-hover transition-colors duration-200" style="text-decoration: none;">Terms of Service</a> and <a href="#" class="primary-text link-hover transition-colors duration-200" style="text-decoration: none;">Privacy Policy</a></span>
+          </label>
+          <span id="termsError" class="font-inter text-xs mt-1 hidden block" style="color: #ef4444;">You must agree to the terms and conditions</span>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="w-full primary-bg text-white font-inter font-semibold text-base rounded-xl py-3 cursor-pointer transition-all duration-200 shadow-lg" style="box-shadow: 0 4px 20px rgba(223, 107, 51, 0.25);">
+          Create Account
+        </button>
+
+      </form>
+
+      <!-- Back to login -->
+      <div class="flex items-center justify-center mt-7">
+        <a href="login.html" class="flex items-center gap-1 font-inter text-sm font-medium primary-text link-hover transition-colors duration-200" style="text-decoration: none;">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          Back to Sign In
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Init Lucide icons
+    lucide.createIcons();
+
+    // Toggle password visibility
+    function togglePasswordVisibility() {
+      const input = document.getElementById('password');
+      const icon = document.getElementById('eyeIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        input.type = 'password';
+        icon.setAttribute('data-lucide', 'eye');
+      }
+      lucide.createIcons();
+    }
+
+    // Toggle confirm password visibility
+    function toggleConfirmPasswordVisibility() {
+      const input = document.getElementById('confirmPassword');
+      const icon = document.getElementById('eyeConfirmIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        input.type = 'password';
+        icon.setAttribute('data-lucide', 'eye');
+      }
+      lucide.createIcons();
+    }
+
+    // Validation functions
+    function validateFullname() {
+      const el = document.getElementById('fullname');
+      const err = document.getElementById('fullnameError');
+      if (!el.value.trim()) {
+        err.textContent = 'Full name is required';
+        err.classList.remove('hidden');
+        el.style.borderColor = '#ef4444';
+        return false;
+      } else {
+        err.classList.add('hidden');
+        el.style.borderColor = '#2a2b3e';
+        return true;
+      }
+    }
+
+    function validateEmail() {
+      const el = document.getElementById('email');
+      const err = document.getElementById('emailError');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!el.value.trim()) {
+        err.textContent = 'Email is required';
+        err.classList.remove('hidden');
+        el.style.borderColor = '#ef4444';
+        return false;
+      } else if (!emailRegex.test(el.value)) {
+        err.textContent = 'Please enter a valid email address';
+        err.classList.remove('hidden');
+        el.style.borderColor = '#ef4444';
+        return false;
+      } else {
+        err.classList.add('hidden');
+        el.style.borderColor = '#2a2b3e';
+        return true;
+      }
+    }
+
+    function validatePhone() {
+      const el = document.getElementById('phone');
+      const err = document.getElementById('phoneError');
+      const phoneRegex = /^[0-9]{10}$/;
+      if (el.value && !phoneRegex.test(el.value)) {
+        err.textContent = 'Phone number must be exactly 10 digits';
+        err.classList.remove('hidden');
+        el.style.borderColor = '#ef4444';
+        return false;
+      } else {
+        err.classList.add('hidden');
+        el.style.borderColor = '#2a2b3e';
+        return true;
+      }
+    }
+
+    function validatePassword() {
+      const el = document.getElementById('password');
+      const err = document.getElementById('passwordError');
+      if (!el.value) {
+        err.textContent = 'Password is required';
+        err.classList.remove('hidden');
+        el.style.borderColor = '#ef4444';
+        return false;
+      } else {
+        err.classList.add('hidden');
+        el.style.borderColor = '#2a2b3e';
+        return true;
+      }
+    }
+
+    function validateConfirmPassword() {
+      const el = document.getElementById('confirmPassword');
+      const err = document.getElementById('confirmPasswordError');
+      const password = document.getElementById('password').value;
+      if (!el.value) {
+        err.textContent = 'Please confirm your password';
+        err.classList.remove('hidden');
+        el.style.borderColor = '#ef4444';
+        return false;
+      } else if (el.value !== password) {
+        err.textContent = 'Passwords do not match';
+        err.classList.remove('hidden');
+        el.style.borderColor = '#ef4444';
+        return false;
+      } else {
+        err.classList.add('hidden');
+        el.style.borderColor = '#2a2b3e';
+        return true;
+      }
+    }
+
+    function validateTerms() {
+      const el = document.getElementById('terms');
+      const err = document.getElementById('termsError');
+      if (!el.checked) {
+        err.classList.remove('hidden');
+        return false;
+      } else {
+        err.classList.add('hidden');
+        return true;
+      }
+    }
+
+    // Handle form submit
+    function handleRegister(e) {
+      e.preventDefault();
+      const fullnameValid = validateFullname();
+      const emailValid = validateEmail();
+      const phoneValid = validatePhone();
+      const passwordValid = validatePassword();
+      const confirmValid = validateConfirmPassword();
+      const termsValid = validateTerms();
+      if (!fullnameValid || !emailValid || !phoneValid || !passwordValid || !confirmValid || !termsValid) return;
+      const fullname = document.getElementById('fullname').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const gender = document.querySelector('input[name="gender"]:checked')?.value || '';
+      const address = document.getElementById('address').value;
+      console.log('Register attempt:', { fullname, email, phone, gender, address });
+      alert('Account created successfully!\nName: ' + fullname + '\nEmail: ' + email);
+    }
+  </script>
+
+</body>
+</html>
